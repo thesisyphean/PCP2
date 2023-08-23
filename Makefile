@@ -17,5 +17,8 @@ all: $(CLASSES_FILES)
 $(BIN_DIR)/%.class: $(SRC_DIR)/%.java
 	javac -d $(BIN_DIR) -sourcepath $(SRC_DIR) -cp $(BIN_DIR) $<
 
+run: $(CLASSES_FILES)
+	java -cp bin ClubSimulation
+
 clean:
 	rm $(BIN_DIR)/*.class
