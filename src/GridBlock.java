@@ -30,7 +30,7 @@ public class GridBlock {
 		return coords[1];
 	}
 
-	public boolean get(int threadID) throws InterruptedException {
+	synchronized public boolean get(int threadID) throws InterruptedException {
 		if (isOccupied == threadID)
 			return true; // thread Already in this block
 		if (isOccupied >= 0)
@@ -39,11 +39,11 @@ public class GridBlock {
 		return true;
 	}
 
-	public void release() {
+	synchronized public void release() {
 		isOccupied = -1;
 	}
 
-	public boolean occupied() {
+	synchronized public boolean occupied() {
 		if (isOccupied == -1)
 			return false;
 		return true;

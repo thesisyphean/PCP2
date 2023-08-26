@@ -2,6 +2,7 @@
 //Grid for the club
 
 //This class represents the club as a grid of GridBlocks
+
 public class ClubGrid {
 	private GridBlock[][] Blocks;
 	private final int x;
@@ -10,6 +11,7 @@ public class ClubGrid {
 
 	private GridBlock exit;
 	private GridBlock entrance; // hard coded entrance
+
 	private final static int minX = 5;// minimum x dimension
 	private final static int minY = 5;// minimum y dimension
 
@@ -77,6 +79,19 @@ public class ClubGrid {
 
 	public GridBlock enterClub(PeopleLocation myLocation) throws InterruptedException {
 		counter.personArrived(); // add to counter of people waiting
+
+		synchronized (entrance) {
+			if (entrance.occupied()) {
+				entrance.wait();
+			}
+		}
+
+		synchronized (counter) {
+			if (counter.getInside() >= counter.getMax()) {
+				counter.wait();
+			}
+		}
+
 		entrance.get(myLocation.getID());
 		counter.personEntered(); // add to counter
 		myLocation.setLocation(entrance);
@@ -107,6 +122,12 @@ public class ClubGrid {
 		if (!newBlock.get(myLocation.getID()))
 			return currentBlock; // stay where you are
 
+		synchronized (entrance) {
+			if (c_x == entrance.getX() && c_y == entrance.getY()) {
+				entrance.notify();
+			}
+		}
+
 		currentBlock.release(); // must release current block
 		myLocation.setLocation(newBlock);
 		return newBlock;
@@ -116,7 +137,10 @@ public class ClubGrid {
 		currentBlock.release();
 		counter.personLeft(); // add to counter
 		myLocation.setInRoom(false);
-		entrance.notifyAll();
+
+		synchronized (counter) {
+			counter.notify();
+		}
 	}
 
 	public GridBlock getExit() {
