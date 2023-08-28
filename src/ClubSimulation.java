@@ -19,7 +19,8 @@ public class ClubSimulation {
 
 	static Clubgoer[] patrons; // array for customer threads
 	static PeopleLocation[] peopleLocations; // array to keep track of where customers are
-	static PeopleLocation andresLocation = new PeopleLocation(69);
+	// IDs are stricty <= noClubgoers, so noClubgoers + 1 is a valid ID
+	static PeopleLocation andresLocation = new PeopleLocation(noClubgoers + 1);
 
 	static PeopleCounter tallys; // counters for number of people inside and outside club
 
@@ -30,7 +31,10 @@ public class ClubSimulation {
 	private static int maxWait = 1200; // for the slowest customer
 	private static int minWait = 500; // for the fastest cutomer
 
+	// As explained in Clubgoer.java, these allow the program to be started and paused
+	// This is toggled whenever the program is paused by the user
 	static AtomicBoolean paused = new AtomicBoolean(false);
+	// This latch is opened when the program is started by the user
 	static CountDownLatch start = new CountDownLatch(1);
 
 	public static void setupGUI(int frameX, int frameY, int[] exits) {
@@ -69,6 +73,7 @@ public class ClubSimulation {
 		// add the listener to the jbutton to handle the "pressed" event
 		startB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Open the latch and let all threads start
 				start.countDown();
 			}
 		});
@@ -78,8 +83,11 @@ public class ClubSimulation {
 		// add the listener to the jbutton to handle the "pressed" event
 		pauseB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				// Change the atomic boolean so all threads wait if it is now paused,
+				// or stop waiting if it is now not paused
 				synchronized (paused) {
 					paused.set(!paused.get());
+					// stop threads waiting to check
 					paused.notifyAll();
 				}
 			}
@@ -146,8 +154,11 @@ public class ClubSimulation {
 			patrons[i].start();
 		}
 
-		GridBlock startBlock = clubGrid.whichBlock(gridX / 2, clubGrid.getBar_y() + 1);
+		// Setup Andre
 		Andre.club = clubGrid;
+		// Get Andre's starting block
+		GridBlock startBlock = clubGrid.whichBlock(gridX / 2, clubGrid.getBar_y() + 1);
+		// Create and start Andre
 		Andre barman = new Andre(andresLocation, 1200, paused, start, startBlock);
 		barman.start();
 		andresLocation.setLocation(startBlock);
