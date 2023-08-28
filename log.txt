@@ -1,0 +1,59 @@
+commit 310a1fc62d142ec14c8ec8a3a529c9bdc7bdaae6
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Mon Aug 28 17:51:25 2023 +0200
+
+    Wrote README.md
+
+commit 851b1d795081416701ae045ccd00ba9799ff32e5
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Mon Aug 28 17:42:59 2023 +0200
+
+    Commented code
+
+commit 989f108a7089132aa3abadda811ce9697da8612a
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Mon Aug 28 17:07:51 2023 +0200
+
+    Final corrections
+
+commit 55837b5f78e7912d3a3c55083a6493e498b68da1
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Mon Aug 28 10:33:17 2023 +0200
+
+    Completed Andre
+
+commit e3a33b24645c690ed004daadda9e4966dba1ae43
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Sat Aug 26 23:03:58 2023 +0200
+
+    Completed main features
+
+commit 77974b64281880cd4b3d800bebe2800c9920b3ac
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Thu Aug 24 13:48:12 2023 +0200
+
+    Completed start and pause
+
+commit e84e0cec53fa4e796c20791cf3627482a9c30213
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Wed Aug 23 18:07:20 2023 +0200
+
+    Corrected Makefile
+
+commit 2ab1116649e9bceaaa1a30920c89fb60c9bd0bcb
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Wed Aug 23 18:06:06 2023 +0200
+
+    Edited Makefile
+
+commit 50536a69bdb0405ed5a41b92a6d5d897fbdf04b7
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Wed Aug 23 19:04:22 2023 +0200
+
+    Added README.md
+
+commit 917b2c4e0e72cb0bd4fc4a57e9d1b7d93810c3df
+Author: Ethan Wolff <thesisyphean256@gmail.com>
+Date:   Tue Aug 15 09:15:49 2023 +0200
+
+    Downloaded skeleton
