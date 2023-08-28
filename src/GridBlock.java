@@ -28,6 +28,9 @@ public class GridBlock {
 		return coords[1];
 	}
 
+	// The following three methods are synchronized to ensure that only one thread
+	// can attempt to enter a gridblock at a time, and this means that the first
+	// and only the first will enter, stopping any others until the first moves
 	synchronized public boolean get(int threadID) throws InterruptedException {
 		if (isOccupied == threadID)
 			return true; // thread Already in this block

@@ -22,7 +22,9 @@ public class Clubgoer extends Thread {
 	private boolean wantToLeave;
 
 	private int ID; // thread ID
+	// Paused allows all threads to poll whether the simulation is paused
 	AtomicBoolean paused;
+	// The start latch allows them to wait until the latch is opened to start
 	CountDownLatch start;
 
 	Clubgoer(int ID, PeopleLocation loc, int speed,
@@ -35,6 +37,7 @@ public class Clubgoer extends Thread {
 		wantToLeave = false; // want to stay when arrive
 		rand = new Random();
 
+		// These are used to control pausing and starting
 		this.paused = paused;
 		this.start = start;
 	}
@@ -63,6 +66,8 @@ public class Clubgoer extends Thread {
 
 	// check to see if user pressed pause button
 	private void checkPause() {
+		// If paused is set to true, the threads wait for it
+		// to be changed by the main thread
 		synchronized (paused) {
 			try {
 				while (paused.get()) {
@@ -74,6 +79,7 @@ public class Clubgoer extends Thread {
 	}
 
 	private void startSim() {
+		// The thread waits for the starting latch to be opened
 		try {
 			start.await();
 		} catch (InterruptedException e) {
@@ -82,10 +88,10 @@ public class Clubgoer extends Thread {
 
 	// get drink at bar
 	private void getDrink() throws InterruptedException {
+		// Wait for the current block to be notified,
+		// which will happen when the barman serves it
 		synchronized (currentBlock) {
-			// while (thirsty) {
-				currentBlock.wait();
-			// }
+			currentBlock.wait();
 		}
 
 		thirsty = false;

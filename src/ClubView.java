@@ -75,10 +75,12 @@ public class ClubView extends JPanel implements Runnable {
 		int x, y;
 		g.setFont(new Font("Helvetica", Font.BOLD, hIncr / 2));
 
-		// barman should go here
+		// --- Andre ---
 		g.setColor(Color.BLACK);
+		// Get coordinates
 		x = (barpersonLocation.getX() + 1) * wIncr;
 		y = (barpersonLocation.getY()) * hIncr;
+		// Draw Andre's circle
 		g.fillOval(x + wIncr / 4, y + hIncr / 4, wIncr / 2, hIncr / 2);
 		g.drawString("Andre", x + wIncr / 4, y + wIncr / 4);
 

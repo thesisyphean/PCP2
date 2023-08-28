@@ -80,12 +80,18 @@ public class ClubGrid {
 	public GridBlock enterClub(PeopleLocation myLocation) throws InterruptedException {
 		counter.personArrived(); // add to counter of people waiting
 
+		// If there is a patron currently in the entrance,
+		// the next patron (there can only be one at a time
+		// because it is synchronized) waits to be notified that they have left.
 		synchronized (entrance) {
 			if (entrance.occupied()) {
 				entrance.wait();
 			}
 		}
 
+		// Even if the entrance is free, patrons can't enter
+		// if there are already too many people, so they wait
+		// until counter is notified, which happens when patrons leave
 		synchronized (counter) {
 			if (counter.getInside() >= counter.getMax()) {
 				counter.wait();
@@ -123,6 +129,8 @@ public class ClubGrid {
 		if (!newBlock.get(myLocation.getID()))
 			return currentBlock; // stay where you are
 
+		// Someone has moved out of the entrance,
+		// so we notify the patron waiting to enter
 		synchronized (entrance) {
 			if (c_x == entrance.getX() && c_y == entrance.getY()) {
 				entrance.notify();

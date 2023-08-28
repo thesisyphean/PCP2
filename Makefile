@@ -4,7 +4,7 @@ SRC_DIR := src
 BIN_DIR := bin
 
 # Names of the .java files
-CLASSES = Clubgoer ClubGrid ClubSimulation ClubView \
+CLASSES = Andre Clubgoer ClubGrid ClubSimulation ClubView \
 		  CounterDisplay GridBlock PeopleCounter PeopleLocation
 
 # The .class files
