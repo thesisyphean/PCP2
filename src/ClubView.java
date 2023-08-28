@@ -80,7 +80,7 @@ public class ClubView extends JPanel implements Runnable {
 		x = (barpersonLocation.getX() + 1) * wIncr;
 		y = (barpersonLocation.getY()) * hIncr;
 		g.fillOval(x + wIncr / 4, y + hIncr / 4, wIncr / 2, hIncr / 2);
-		g.drawString("OwO", x + wIncr / 4, y + wIncr / 4);
+		g.drawString("Andre", x + wIncr / 4, y + wIncr / 4);
 
 		// patrons
 		for (int i = 0; i < noPatrons; i++) {

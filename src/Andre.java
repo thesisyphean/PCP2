@@ -1,6 +1,5 @@
 //M. M. Kuttel 2023 mkuttel@gmail.com
 
-import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -24,12 +23,16 @@ public class Andre extends Thread {
 	CountDownLatch start;
 
 	Andre(PeopleLocation loc, int speed,
-			AtomicBoolean paused, CountDownLatch start) {
+			AtomicBoolean paused, CountDownLatch start, GridBlock gb) {
 		movingSpeed = speed; // range of speeds for customers
 		this.myLocation = loc; // for easy lookups
 
 		this.paused = paused;
 		this.start = start;
+
+		try {gb.get(myLocation.getID());} catch (InterruptedException e) {};
+		myLocation.setLocation(gb);
+		currentBlock = gb;
 	}
 
 	// getter
@@ -72,13 +75,17 @@ public class Andre extends Thread {
 		}
 
 		try {
-			club.move(currentBlock, direction, 0, myLocation);
+			currentBlock = club.move(currentBlock, direction, 0, myLocation);
 		} catch (InterruptedException e) {
 		}
 	}
 
 	private void serveDrink() {
-		// TODO
+		// if there's anyone in front of him, he serves them
+		GridBlock opposite = club.whichBlock(currentBlock.getX(), currentBlock.getY() - 1);
+		synchronized (opposite) {
+			opposite.notifyAll();
+		}
 	}
 
 	public void run() {
@@ -91,6 +98,10 @@ public class Andre extends Thread {
 
 			move();
 			serveDrink();
+
+			try {
+				sleep(500);
+			} catch (InterruptedException e) {}
 		}
 	}
 

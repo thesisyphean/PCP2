@@ -109,13 +109,14 @@ public class ClubGrid {
 		int new_y = c_y + step_y; // new block y coordinates
 
 		// restrict i an j to grid
-		if (!inPatronArea(new_x, new_y)) {
+		if (c_y <= bar_y && !inPatronArea(new_x, new_y)) {
 			// Invalid move to outside - ignore
 			return currentBlock;
 		}
 
 		if ((new_x == currentBlock.getX()) && (new_y == currentBlock.getY())) // not actually moving
 			return currentBlock;
+
 
 		GridBlock newBlock = Blocks[new_x][new_y];
 

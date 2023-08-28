@@ -106,7 +106,6 @@ public class ClubSimulation {
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-
 		// deal with command line arguments if provided
 		if (args.length == 4) {
 			noClubgoers = Integer.parseInt(args[0]); // total people to enter room
@@ -147,8 +146,10 @@ public class ClubSimulation {
 			patrons[i].start();
 		}
 
-		Andre barman = new Andre(andresLocation, 1200, paused, start);
+		GridBlock startBlock = clubGrid.whichBlock(gridX / 2, clubGrid.getBar_y() + 1);
+		Andre.club = clubGrid;
+		Andre barman = new Andre(andresLocation, 1200, paused, start, startBlock);
 		barman.start();
-		andresLocation.setLocation(clubGrid.whichBlock(gridX / 2, clubGrid.getBar_y() + 1));
+		andresLocation.setLocation(startBlock);
 	}
 }
