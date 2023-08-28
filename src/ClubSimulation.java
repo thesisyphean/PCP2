@@ -19,6 +19,7 @@ public class ClubSimulation {
 
 	static Clubgoer[] patrons; // array for customer threads
 	static PeopleLocation[] peopleLocations; // array to keep track of where customers are
+	static PeopleLocation andresLocation = new PeopleLocation(69);
 
 	static PeopleCounter tallys; // counters for number of people inside and outside club
 
@@ -42,7 +43,7 @@ public class ClubSimulation {
 		g.setLayout(new BoxLayout(g, BoxLayout.PAGE_AXIS));
 		g.setSize(frameX, frameY);
 
-		clubView = new ClubView(peopleLocations, clubGrid, exits);
+		clubView = new ClubView(peopleLocations, andresLocation, clubGrid, exits);
 		clubView.setSize(frameX, frameY);
 		g.add(clubView);
 
@@ -145,5 +146,9 @@ public class ClubSimulation {
 		for (int i = 0; i < noClubgoers; i++) {
 			patrons[i].start();
 		}
+
+		Andre barman = new Andre(andresLocation, 1200, paused, start);
+		barman.start();
+		andresLocation.setLocation(clubGrid.whichBlock(gridX / 2, clubGrid.getBar_y() + 1));
 	}
 }

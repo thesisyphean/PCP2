@@ -77,6 +77,10 @@ public class Andre extends Thread {
 		}
 	}
 
+	private void serveDrink() {
+		// TODO
+	}
+
 	public void run() {
 		startSim();
 		checkPause();
@@ -86,6 +90,7 @@ public class Andre extends Thread {
 			checkPause(); // check every step
 
 			move();
+			serveDrink();
 		}
 	}
 
